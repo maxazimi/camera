@@ -330,7 +330,6 @@ static int stopPreview() {
 import "C"
 import (
 	"fmt"
-	"github.com/maxazimi/v2ray-gio/jgo"
 	"image"
 	"unsafe"
 )
@@ -391,7 +390,6 @@ func rotateImage90(buf []byte, width, height int) *image.RGBA {
 }
 
 func openCamera(cameraId, width, height int) error {
-	jgo.RequestPermission("android.permission.CAMERA")
 	if C.openCamera(C.int(cameraId), C.int(width), C.int(height)) != 0 {
 		return fmt.Errorf("failed to initialize camera")
 	}
