@@ -10,6 +10,7 @@ var (
 	frameBufferChan chan *image.RGBA
 	opened          = false
 	stopped         = true
+	closing         = false
 )
 
 func Open(id, width, height int) error {
@@ -59,16 +60,18 @@ func StopPreview() error {
 }
 
 func Close() {
-	if !opened {
+	if !opened || closing {
 		return
 	}
+	closing = true
+
 	if !stopped {
 		_ = StopPreview()
 	}
 
-	opened = false
 	closeCamera()
 	close(frameBufferChan)
+	opened, closing = false, false
 }
 
 func GetCameraFrameChan() <-chan *image.RGBA {
