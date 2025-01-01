@@ -4,7 +4,7 @@ package camera
 #cgo LDFLAGS: -lole32 -lmf -lmfplat -lmfuuid -lmfreadwrite
 #include "camera_windows.c"
 
-static void copyImage(uint8_t *dstBuf, void* srcBuf, size_t size) {
+static void copyImage(uint8_t *dstBuf, void* srcBuf, size_t frame_size) {
     memcpy(dstBuf, srcBuf, frame_size);
 }
 
